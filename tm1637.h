@@ -27,7 +27,6 @@
 
 #include <inttypes.h>
 #include <stdbool.h>
-#include "stm32g0xx_hal.h"
 
 #define SEG_A   0b00000001
 #define SEG_B   0b00000010
@@ -40,7 +39,7 @@
 #define DEFAULT_BIT_DELAY  100
 
 typedef struct {
-    GPIO_TypeDef *GPIOx;
+    void *GPIOx;
     uint32_t pinClk;
     uint32_t pinDIO;
     uint32_t brightness;
@@ -52,8 +51,6 @@ typedef struct {
     void (*user_writePin)(void *port, int pin, int out);
     void (*user_portDelay)(int delay);
 }tm1637_lib_t;
-
-void pinMode(GPIO_TypeDef *GPIOx, int pin, int mode);
 
 
 void tm1637_init(tm1637_dev_t *dev);
